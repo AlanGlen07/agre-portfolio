@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { Home, User, Code2, Folder, Award, Mail, Terminal } from "lucide-react";
+import { Home, User, Code2, Folder, Award, Mail, Terminal as TerminalIcon } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
+import Terminal from "./terminal";
 import "../style/navbar.css";
 
 const links = [
@@ -10,11 +11,12 @@ const links = [
   { id: "projects", label: "Projects", icon: Folder },
   { id: "certificates", label: "Certificates", icon: Award },
   { id: "contact", label: "Contact", icon: Mail },
-  { id: "cli", label: "CLI", icon: Terminal },
+  { id: "cli", label: "CLI", icon: TerminalIcon },
 ];
 
 export default function Navbar() {
   const [active, setActive] = useState("home");
+  const [termOpen, setTermOpen] = useState(false);
 
   // Highlight the nav item for the section currently on screen
   useEffect(() => {
@@ -30,33 +32,45 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="site-header">
-      <div className="topbar">
-       
-        <div className="topbar-right">
-          <span className="availability">
-            <i className="dot" /> Available for work
-          </span>
-          <ThemeToggle />
+    <>
+      <header className="site-header">
+        <div className="topbar">
+          <div className="topbar-right" style={{ marginLeft: "auto" }}>
+            <span className="availability">
+              <i className="dot" /> Available for work
+            </span>
+            <ThemeToggle />
+          </div>
         </div>
-      </div>
 
-      <nav className="nav" aria-label="Primary">
-        <ul>
-          {links.map(({ id, label, icon: Icon }) => (
-            <li key={id}>
-              <a
-                href={`#${id}`}
-                className={active === id ? "active" : ""}
-                aria-current={active === id ? "page" : undefined}
-              >
-                <Icon size={14} />
-                <span>{label}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    </header>
+        <nav className="nav" aria-label="Primary">
+          <ul>
+            {links.map(({ id, label, icon: Icon }) => (
+              <li key={id}>
+                <a
+                  href={`#${id}`}
+                  className={active === id || (id === "cli" && termOpen) ? "active" : ""}
+                  aria-current={active === id ? "page" : undefined}
+                  onClick={
+                    id === "cli"
+                      ? (e) => {
+                          e.preventDefault();
+                          setTermOpen(true);
+                        }
+                      : undefined
+                  }
+                >
+                  <Icon size={14} />
+                  <span>{label}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </header>
+
+      {/* Rendered outside the header so the overlay covers the whole screen */}
+      {termOpen && <Terminal onClose={() => setTermOpen(false)} />}
+    </>
   );
 }
