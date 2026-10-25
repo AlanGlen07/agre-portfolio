@@ -1,0 +1,70 @@
+.about { padding: 110px 24px; }
+
+.about-inner { max-width: 1040px; margin: 0 auto; }
+
+.about-head {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: 40px; padding-bottom: 36px;
+  border-bottom: 1px solid var(--border);
+}
+
+.about-label {
+  margin: 0 0 22px;
+  font-family: var(--font-mono); font-size: 8px;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim);
+}
+.about-label b { color: var(--accent); margin-right: 14px; font-weight: 600; }
+
+.about-title {
+  margin: 0; max-width: 640px;
+  font-size: clamp(2.4rem, 5.4vw, 3.9rem);
+  font-weight: 300; line-height: 1; letter-spacing: -0.045em;
+  color: var(--text);
+}
+
+.about-sub {
+  margin: 0 0 8px; max-width: 270px;
+  font-size: 12px; line-height: 1.9; font-weight: 300; color: var(--text-muted);
+}
+
+.about-body {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0; margin-top: 56px;
+}
+
+.about-quote { margin: 0; padding: 0 56px 0 4px; }
+.quote-mark {
+  display: block; height: 50px;
+  font-family: Georgia, serif; font-size: 80px; line-height: 1;
+  color: var(--accent); opacity: 0.55;
+}
+.about-quote p {
+  margin: 0 0 0 36px;
+  font-size: clamp(1.5rem, 2.6vw, 2.05rem);
+  font-weight: 300; line-height: 1.38; letter-spacing: -0.035em;
+  color: var(--text);
+}
+
+.about-text { padding: 0 0 0 50px; border-left: 1px solid var(--border); }
+.about-text > p {
+  margin: 0 0 20px;
+  font-size: 12.5px; line-height: 1.95; font-weight: 300; color: var(--text-muted);
+}
+
+.pillars { list-style: none; margin: 42px 0 0; padding: 0; }
+.pillars li {
+  padding: 13px 0;
+  border-top: 1px solid var(--border);
+  font-family: var(--font-mono); font-size: 8px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--text);
+}
+.pillars li:last-child { border-bottom: 1px solid var(--border); }
+.pillars b { color: var(--text); font-weight: 700; }
+
+@media (max-width: 860px) {
+  .about { padding: 80px 24px; }
+  .about-head { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .about-body { grid-template-columns: 1fr; gap: 48px; }
+  .about-quote { padding: 0; }
+  .about-text { padding: 0; border-left: 0; }
+}
