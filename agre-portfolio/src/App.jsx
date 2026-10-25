@@ -4,6 +4,7 @@ import About from "./sections/about/about";
 import Skills from "./sections/skills/skills";
 import Projects from "./sections/projects/projects";
 import Certificates from "./sections/certificates/certificates";
+import Contacts from "./sections/contacts/contacts";
 
 export default function App() {
   return (
@@ -15,7 +16,7 @@ export default function App() {
         <Skills />
         <Projects />
         <Certificates />
-        {/* Next: <Contact /> */}
+        <Contacts />
       </main>
     </>
   );

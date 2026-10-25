@@ -1,0 +1,187 @@
+.contact { padding: 90px 24px 130px; }
+.contact-inner { max-width: 1040px; margin: 0 auto; }
+
+.contact-head {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: 40px; padding-bottom: 36px; border-bottom: 1px solid var(--border);
+}
+.contact-label {
+  margin: 0 0 22px; font-family: var(--font-mono); font-size: 8px;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim);
+}
+.contact-label b { color: var(--accent); margin-right: 14px; font-weight: 600; }
+.contact-title {
+  margin: 0; max-width: 560px; font-size: clamp(2.4rem, 5.4vw, 3.9rem);
+  font-weight: 300; line-height: 0.98; letter-spacing: -0.045em; color: var(--text);
+}
+.contact-sub {
+  margin: 0 0 8px; max-width: 300px; font-size: 12px; line-height: 1.9;
+  font-weight: 300; color: var(--text-muted);
+}
+
+.contact-body {
+  display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 90px; margin-top: 56px;
+}
+
+.field-label {
+  display: block; margin: 0 0 12px; font-family: var(--font-mono); font-size: 7px;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim);
+}
+
+/* Left column */
+.contact-left { position: relative; isolation: isolate; }
+.contact-left::before {
+  content: ""; position: absolute; z-index: -1; left: -60px; bottom: -80px;
+  width: 420px; height: 320px; pointer-events: none;
+  background:
+    radial-gradient(circle at 30% 60%, var(--glow), transparent 62%),
+    radial-gradient(circle at 80% 30%, var(--glow), transparent 55%);
+  filter: blur(10px);
+}
+.contact-email {
+  display: inline-block; margin-top: 38px;
+  font-size: clamp(1.7rem, 3vw, 2.3rem); font-weight: 300;
+  line-height: 1.12; letter-spacing: -0.04em; color: var(--text);
+  transition: color 0.2s;
+}
+.contact-email svg { margin-left: 10px; vertical-align: middle; transition: transform 0.2s; }
+.contact-email:hover { color: var(--accent); }
+.contact-email:hover svg { transform: translateX(5px); }
+
+.contact-place { margin: 26px 0 0; font-size: 11px; line-height: 1.8; font-weight: 300; color: var(--text-muted); }
+.field-label.elsewhere { margin-top: 44px; }
+
+/* Glass links */
+.glass-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.glass-link {
+  position: relative; overflow: hidden; isolation: isolate;
+  display: flex; flex-direction: column; align-items: flex-start;
+  min-height: 140px; padding: 18px 16px 16px; text-align: left;
+  color: var(--text); border: 0; font: inherit; cursor: pointer;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--text) 11%, transparent),
+    color-mix(in srgb, var(--text) 2%, transparent)
+  );
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--text) 16%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--text) 24%, transparent);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  backdrop-filter: blur(16px) saturate(150%);
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  transition: transform 0.25s, box-shadow 0.25s, background 0.25s;
+}
+.glass-link svg:not(.glass-go) { color: var(--accent); margin-bottom: auto; }
+.glass-go {
+  position: absolute; top: 12px; right: 18px; color: var(--text-dim);
+  transition: color 0.25s, transform 0.25s;
+}
+.glass-name {
+  margin-top: 18px; font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+}
+.glass-link small {
+  margin-top: 5px; font-family: var(--font-mono); font-size: 8px;
+  letter-spacing: 0.08em; color: var(--text-muted);
+}
+/* shimmer + underline */
+.glass-link::before {
+  content: ""; position: absolute; z-index: -1; top: 0; left: -70%;
+  width: 50%; height: 100%; transform: skewX(-20deg);
+  background: linear-gradient(100deg, transparent, color-mix(in srgb, var(--text) 16%, transparent), transparent);
+  transition: left 0.8s ease;
+}
+.glass-link::after {
+  content: ""; position: absolute; left: 0; bottom: 0; height: 2px; width: 0;
+  background: var(--accent); box-shadow: 0 0 12px var(--accent); transition: width 0.35s;
+}
+.glass-link:hover, .glass-link:focus-visible {
+  transform: translateY(-4px);
+  background: linear-gradient(135deg, var(--glow), color-mix(in srgb, var(--text) 3%, transparent));
+  box-shadow:
+    inset 0 0 0 1px var(--accent),
+    inset 0 1px 0 color-mix(in srgb, var(--text) 30%, transparent);
+}
+.glass-link:hover::before { left: 130%; }
+.glass-link:hover::after { width: 100%; }
+.glass-link:hover .glass-go { color: var(--accent); transform: translate(2px, -2px); }
+
+/* Form */
+.contact-form label { display: block; margin-bottom: 26px; }
+.contact-form input, .contact-form textarea {
+  width: 100%; padding: 8px 0 14px; background: transparent; color: var(--text);
+  border: 0; border-bottom: 1px solid var(--border); border-radius: 0;
+  font: inherit; font-size: 12px; font-weight: 300; outline: none; resize: vertical;
+  transition: border-color 0.25s;
+}
+.contact-form input::placeholder, .contact-form textarea::placeholder { color: var(--text-dim); }
+.contact-form input:focus, .contact-form textarea:focus { border-bottom-color: var(--accent); }
+.contact-form label:focus-within .field-label { color: var(--accent); }
+.contact-form textarea { min-height: 96px; }
+
+.send-btn {
+  display: inline-flex; align-items: center; gap: 22px; margin-top: 8px;
+  padding: 16px 20px; background: var(--accent); color: var(--accent-text); border: 0;
+  font-family: var(--font-mono); font-size: 9px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; transition: transform 0.2s;
+}
+.send-btn:hover { transform: translateY(-2px); }
+.form-note { margin: 18px 0 0; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.06em; color: var(--accent); }
+
+/* Resume viewer */
+.resume-overlay {
+  position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 24px;
+  background: rgba(2, 5, 12, 0.82); backdrop-filter: blur(8px);
+  animation: rv-fade 0.2s ease;
+}
+.resume-panel {
+  width: min(900px, 100%); background: var(--bg-elev); border: 1px solid var(--border);
+  animation: rv-zoom 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.resume-bar {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  padding: 12px 14px 12px 20px; border-bottom: 1px solid var(--border);
+}
+.resume-bar > span {
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--text-dim);
+}
+.resume-actions { display: flex; align-items: center; gap: 8px; }
+.resume-btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 9px 12px;
+  border: 1px solid var(--border); color: var(--text);
+  font-family: var(--font-mono); font-size: 8px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  transition: border-color 0.2s, color 0.2s;
+}
+.resume-btn:hover { border-color: var(--accent); color: var(--accent); }
+.resume-btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-text); }
+.resume-btn.primary:hover { color: var(--accent-text); opacity: 0.9; }
+.resume-close {
+  display: grid; place-items: center; width: 34px; height: 34px;
+  background: var(--bg); border: 1px solid var(--border); color: var(--text);
+}
+.resume-close:hover { border-color: var(--accent); color: var(--accent); }
+
+.resume-view { height: min(78vh, 880px); background: var(--frame-bg); }
+.resume-view iframe { display: block; width: 100%; height: 100%; border: 0; background: #fff; }
+.resume-msg {
+  height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 8px; text-align: center; color: var(--text-muted); font-size: 13px;
+}
+.resume-msg svg { color: var(--accent); }
+.resume-msg p { margin: 0; color: var(--text); }
+.resume-msg small { font-size: 11px; }
+.resume-msg code { font-family: var(--font-mono); color: var(--accent); }
+
+@keyframes rv-fade { from { opacity: 0; } }
+@keyframes rv-zoom { from { opacity: 0; transform: scale(0.92); } }
+
+@media (max-width: 900px) {
+  .contact-head { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .contact-body { grid-template-columns: 1fr; gap: 64px; }
+}
+@media (max-width: 520px) {
+  .glass-links { grid-template-columns: 1fr; }
+  .resume-bar > span { display: none; }
+}
