@@ -1,0 +1,42 @@
+/* Dark is the default; light overrides via [data-theme="light"] */
+:root,
+[data-theme="dark"] {
+  --bg: #050a14;
+  --bg-elev: #0a1222;
+  --nav-bg: #09111f;
+  --text: #f1f5fb;
+  --text-muted: #8794ab;
+  --text-dim: #5d6b85;
+  --border: #1a2640;
+  --accent: #1e90ff;
+  --accent-text: #ffffff;
+  --success: #22c55e;
+  --glow: rgba(30, 144, 255, 0.2);
+  --grid: rgba(120, 160, 255, 0.045);
+  --name-gradient: linear-gradient(180deg, #ffffff 35%, #8d99ad 100%);
+  --frame-bg: #03060c;
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --bg: #f4f7fc;
+  --bg-elev: #ffffff;
+  --nav-bg: #ffffff;
+  --text: #0a1220;
+  --text-muted: #4f5d75;
+  --text-dim: #7a879c;
+  --border: #d3dcec;
+  --accent: #0b6fe0;
+  --accent-text: #ffffff;
+  --success: #16a34a;
+  --glow: rgba(11, 111, 224, 0.13);
+  --grid: rgba(10, 18, 32, 0.05);
+  --name-gradient: linear-gradient(180deg, #0a1220 35%, #5a6b88 100%);
+  --frame-bg: #e6ecf7;
+  color-scheme: light;
+}
+
+:root {
+  --font-display: "Inter Tight", "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+}
