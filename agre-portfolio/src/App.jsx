@@ -5,10 +5,13 @@ import Skills from "./sections/skills/skills";
 import Projects from "./sections/projects/projects";
 import Certificates from "./sections/certificates/certificates";
 import Contacts from "./sections/contacts/contacts";
+import Background3D from "./sections/hero/background3d";
+import FloatingAvatar from "./components/FloatingAvatar";
 
 export default function App() {
   return (
     <>
+      <Background3D />
       <Navbar />
       <main>
         <Hero />
@@ -18,6 +21,7 @@ export default function App() {
         <Certificates />
         <Contacts />
       </main>
+      <FloatingAvatar />
     </>
   );
 }

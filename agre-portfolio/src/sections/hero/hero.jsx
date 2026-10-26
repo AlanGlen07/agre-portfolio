@@ -1,6 +1,8 @@
 import { ArrowRight } from "lucide-react";
 import photo from "../../assets/images/myphoto.png";
+import cartoon from "../../assets/images/pixilated.png";
 import "../../style/hero.css";
+
 const stats = [
   { value: "05", label: "Core technologies" },
   { value: "03+", label: "Years of building" },
@@ -32,7 +34,7 @@ export default function Hero() {
 
           <div className="cta">
             <a href="#projects" className="btn btn-primary">
-              Explore my work <ArrowRight size={16} />
+              Explore my work <ArrowRight size={18} />
             </a>
             <a href="#contact" className="btn btn-ghost">
               Start a conversation
@@ -51,21 +53,28 @@ export default function Hero() {
 
         <figure className="portrait">
           <div className="portrait-meta top">
-            <span>ID / AGRE-07</span>
-            <b>26.02</b>
+            
           </div>
 
           <div className="frame">
-            <img src={photo} alt="Portrait of Alan Glen R. Escobar Jr." />
+            <img
+              className="shot photo"
+              src={photo}
+              alt="Portrait of Alan Glen R. Escobar Jr."
+            />
+            <img
+              className="shot cartoon"
+              src={cartoon}
+              alt="Cartoon avatar of Alan waving hello"
+            />
             <span className="scan" aria-hidden="true" />
             <span className="corner tr" aria-hidden="true" />
             <span className="corner bl" aria-hidden="true" />
           </div>
-          <span className="tag">&lt;craft /&gt;</span>
+         
 
           <div className="portrait-meta bottom">
-            <span>Profile // Active</span>
-            <b>01</b>
+           
           </div>
         </figure>
       </div>

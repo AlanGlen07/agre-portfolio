@@ -1,20 +1,21 @@
 .site-header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  width: 100%;
   z-index: 50;
-  background: color-mix(in srgb, var(--bg) 88%, transparent);
-  backdrop-filter: blur(10px);
   padding: 14px 24px 0;
+  pointer-events: none;
 }
 
 .topbar {
   max-width: 1040px;
   margin: 0 auto;
+  pointer-events: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding-bottom: 14px;
-  border-bottom: 1px solid var(--border);
 }
 
 .brand { display: flex; align-items: center; gap: 12px; }
@@ -56,17 +57,23 @@
 /* Angular nav bar */
 .nav {
   position: relative;
-  max-width: 860px;
+  width: fit-content;
+  max-width: calc(100vw - 48px);
   margin: 14px auto 0;
-  background: var(--nav-bg);
-  clip-path: polygon(0 50%, 5% 0, 94% 0, 100% 50%, 92% 100%, 6% 100%);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  backdrop-filter: none;
+  box-shadow: none;
+  pointer-events: auto;
 }
 .nav::after {
-  content: ""; position: absolute; left: 6%; right: 8%; bottom: 0; height: 1px;
+  content: ""; position: absolute; left: 12%; right: 12%; bottom: 0; height: 1px;
   background: linear-gradient(90deg, transparent, var(--accent), transparent);
 }
 .nav ul {
-  list-style: none; margin: 0; padding: 0 56px;
+  list-style: none; margin: 0; padding: 0 16px;
   display: flex; justify-content: center; align-items: center;
 }
 .nav li + li { border-left: 1px solid var(--border); }
@@ -83,8 +90,10 @@
 .nav a.active svg { color: var(--accent); }
 
 @media (max-width: 760px) {
+  .site-header { padding: 10px 12px 0; }
+  .topbar { padding-bottom: 10px; }
   .availability { display: none; }
-  .nav { clip-path: none; overflow-x: auto; }
-  .nav ul { padding: 0; justify-content: flex-start; }
-  .nav a { padding: 14px 16px; white-space: nowrap; }
+  .nav { max-width: calc(100vw - 24px); margin-top: 10px; overflow-x: auto; }
+  .nav ul { padding: 0 6px; justify-content: flex-start; }
+  .nav a { padding: 13px 14px; white-space: nowrap; }
 }

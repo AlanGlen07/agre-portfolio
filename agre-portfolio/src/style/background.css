@@ -1,0 +1,15 @@
+/* Animated 3D background sits behind everything */
+.bg3d {
+  position: fixed; inset: 0; z-index: 0;
+  width: 100%; height: 100%; pointer-events: none;
+}
+/* Page content and the floating header sit above the animated canvas. */
+main {
+  position: relative;
+  z-index: 1;
+  padding-top: 122px;
+}
+
+@media (max-width: 760px) {
+  main { padding-top: 112px; }
+}
