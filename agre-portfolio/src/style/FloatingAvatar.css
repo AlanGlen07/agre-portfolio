@@ -1,97 +1,102 @@
-
-.robot-draggable {
+/* Cursor-following robot: neon cyan + electric blue, a touch of violet */
+.robot-avatar {
   position: fixed;
-  width: 150px;
   z-index: 1000;
-
+  width: 96px;
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  cursor: grab;
-  touch-action: none;
+  pointer-events: none;            /* never blocks clicks or links */
   user-select: none;
   -webkit-user-select: none;
-
-  animation: robot-hover 3s ease-in-out infinite;
-  transition: filter 0.2s ease;
 }
 
-.robot-draggable.is-dragging {
-  cursor: grabbing;
-  animation: none;
-  filter: drop-shadow(0 12px 20px rgb(0 217 255 / 35%));
+/* desktop: position is driven by JS (translate3d) */
+.robot-avatar.is-follow { left: 0; top: 0; will-change: transform; }
+.robot-avatar.is-follow:not([data-ready]) { opacity: 0; } /* no flash at 0,0 before first frame */
+
+/* touch, small screens, reduced motion: rests in the corner, no JS loop */
+.robot-avatar.is-static { right: 16px; bottom: 16px; width: 72px; }
+
+.robot-stage { position: relative; width: 100%; }
+
+/* soft glow: cyan core -> electric blue -> violet rim */
+.robot-aura {
+  position: absolute;
+  inset: -32%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 229, 255, 0.32) 0%,
+    rgba(30, 144, 255, 0.22) 40%,
+    rgba(139, 92, 246, 0.16) 62%,
+    transparent 72%
+  );
+  animation: robot-pulse 3.2s ease-in-out infinite;
 }
+
+.robot-bob { position: relative; animation: robot-float 3.4s ease-in-out infinite; }
+.robot-tilt { transform-origin: 50% 70%; will-change: transform; }
 
 .robot-image {
   display: block;
   width: 100%;
   height: auto;
-  object-fit: contain;
-
-  pointer-events: none;
   -webkit-user-drag: none;
-
-  filter: drop-shadow(0 0 15px rgb(0 217 255 / 30%));
+  filter:
+    drop-shadow(0 0 5px rgba(0, 229, 255, 0.85))
+    drop-shadow(0 0 16px rgba(30, 144, 255, 0.7));
 }
 
 .robot-label {
   display: flex;
   align-items: center;
   gap: 7px;
-
-  margin-top: 5px;
-  padding: 6px 10px;
-
-  border: 1px solid rgb(0 217 255 / 40%);
+  margin-top: 6px;
+  padding: 5px 10px;
+  border: 1px solid transparent;
   border-radius: 20px;
-
-  background: #0b111c;
+  /* gradient border: cyan -> blue -> violet */
+  background:
+    linear-gradient(#0b111c, #0b111c) padding-box,
+    linear-gradient(90deg, #00e5ff, #1e90ff, #8b5cf6) border-box;
   color: #7cecff;
-
-  font-family: monospace;
-  font-size: 10px;
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.25);
+  font-family: var(--font-mono, monospace);
+  font-size: 9px;
   font-weight: 600;
   letter-spacing: 2px;
-
-  pointer-events: none;
+  white-space: nowrap;
 }
 
 .robot-dot {
   width: 6px;
   height: 6px;
   flex-shrink: 0;
-
   border-radius: 50%;
   background: #00e5ff;
   box-shadow: 0 0 8px #00e5ff;
+  animation: robot-blink 1.8s ease-in-out infinite;
 }
 
-@keyframes robot-hover {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-8px);
-  }
+@keyframes robot-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes robot-pulse {
+  0%, 100% { opacity: 0.65; transform: scale(0.94); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
+@keyframes robot-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
 }
 
-@media (max-width: 600px) {
-  .robot-draggable {
-    width: 100px;
-  }
-
-  .robot-label {
-    font-size: 8px;
-    padding: 5px 7px;
-    letter-spacing: 1px;
-  }
-}
+/* lighter effects when it just rests in the corner (phones/tablets) */
+.is-static .robot-image { filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.6)); }
+.is-static .robot-aura { animation: none; opacity: 0.7; }
+.is-static .robot-label { font-size: 8px; padding: 4px 8px; letter-spacing: 1px; }
 
 @media (prefers-reduced-motion: reduce) {
-  .robot-draggable {
-    animation: none;
-  }
+  .robot-aura, .robot-bob, .robot-dot { animation: none; }
 }
