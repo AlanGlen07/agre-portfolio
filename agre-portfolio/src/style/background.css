@@ -7,9 +7,9 @@
 main {
   position: relative;
   z-index: 1;
-  padding-top: 122px;
+  padding-top: 172px;
 }
 
 @media (max-width: 760px) {
-  main { padding-top: 112px; }
+  main { padding-top: 146px; }
 }

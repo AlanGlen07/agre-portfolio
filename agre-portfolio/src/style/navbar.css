@@ -54,46 +54,82 @@
 }
 .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
 
-/* Angular nav bar */
+/* Pill nav bar: the active icon pops out of the bar and the bar changes color */
 .nav {
+  --nav-accent: var(--accent);
   position: relative;
   width: fit-content;
-  max-width: calc(100vw - 48px);
-  margin: 14px auto 0;
-  overflow: hidden;
-  border: 1px solid var(--border);
+  max-width: calc(100vw - 24px);
+  margin: 34px auto 0;            /* room above for the popped-up icon */
+  border: 1px solid color-mix(in srgb, var(--nav-accent) 45%, var(--border));
   border-radius: 999px;
-  background: transparent;
-  backdrop-filter: none;
-  box-shadow: none;
+  background: color-mix(in srgb, var(--nav-accent) 14%, var(--bg-elev));
+  box-shadow: 0 10px 30px -12px color-mix(in srgb, var(--nav-accent) 55%, transparent);
   pointer-events: auto;
-}
-.nav::after {
-  content: ""; position: absolute; left: 12%; right: 12%; bottom: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  transition: background 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease;
 }
 .nav ul {
-  list-style: none; margin: 0; padding: 0 16px;
+  list-style: none; margin: 0; padding: 0 12px;
   display: flex; justify-content: center; align-items: center;
 }
-.nav li + li { border-left: 1px solid var(--border); }
 .nav a {
-  display: flex; align-items: center; gap: 8px;
-  padding: 18px 20px;
+  position: relative;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  min-width: 72px;
+  padding: 16px 12px 14px;
   font-family: var(--font-mono); font-size: 8px; font-weight: 600;
   letter-spacing: 0.16em; text-transform: uppercase;
   color: var(--text-muted);
-  transition: color 0.2s;
+  transition: color 0.25s;
 }
 .nav a:hover,
 .nav a.active { color: var(--text); }
-.nav a.active svg { color: var(--accent); }
+
+/* icon bubble */
+.nav-icon {
+  display: grid; place-items: center;
+  width: 30px; height: 30px; border-radius: 50%;
+  border: 0 solid var(--bg);
+  transition: transform 0.25s ease, color 0.25s;
+}
+.nav a:hover .nav-icon { transform: translateY(-3px); }
+
+.nav a.active .nav-icon {
+  width: 42px; height: 42px; margin: -4px 0 -6px;
+  color: #fff;
+  background: var(--nav-accent);
+  border: 4px solid var(--bg);                 /* cut-out ring, like the floating circle */
+  box-shadow: 0 8px 20px -4px color-mix(in srgb, var(--nav-accent) 70%, transparent);
+  transform: translateY(-26px);
+  animation: nav-bounce 0.7s cubic-bezier(0.28, 0.84, 0.42, 1) both;
+}
+
+/* dot under the active label */
+.nav a::after {
+  content: ""; position: absolute; left: 50%; bottom: 4px;
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--nav-accent);
+  transform: translateX(-50%) scale(0);
+  transition: transform 0.3s ease 0.15s;
+}
+.nav a.active::after { transform: translateX(-50%) scale(1); }
+
+@keyframes nav-bounce {
+  0%   { transform: translateY(0)     scale(0.7, 0.7); }
+  35%  { transform: translateY(-46px) scale(0.92, 1.1); }
+  55%  { transform: translateY(-20px) scale(1.08, 0.9); }
+  72%  { transform: translateY(-31px) scale(0.98, 1.03); }
+  88%  { transform: translateY(-24px) scale(1); }
+  100% { transform: translateY(-26px) scale(1); }
+}
 
 @media (max-width: 760px) {
   .site-header { padding: 10px 12px 0; }
-  .topbar { padding-bottom: 10px; }
+  .topbar { padding-bottom: 6px; }
   .availability { display: none; }
-  .nav { max-width: calc(100vw - 24px); margin-top: 10px; overflow-x: auto; }
-  .nav ul { padding: 0 6px; justify-content: flex-start; }
-  .nav a { padding: 13px 14px; white-space: nowrap; }
+  .nav { margin-top: 32px; }
+  .nav ul { padding: 0 6px; }
+  .nav a { min-width: 0; padding: 16px 10px 14px; }
+  .nav-label { display: none; }      /* 7 items: icons only on phones */
+  .nav a::after { bottom: 5px; }
 }
