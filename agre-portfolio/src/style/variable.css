@@ -12,6 +12,7 @@
   --accent-text: #ffffff;
   --success: #22c55e;
   --glow: rgba(30, 144, 255, 0.2);
+  --accent-soft: color-mix(in srgb, var(--accent) 72%, var(--text));
   --grid: rgba(120, 160, 255, 0.045);
   --name-gradient: linear-gradient(180deg, #ffffff 35%, #8d99ad 100%);
   --frame-bg: #03060c;
@@ -30,6 +31,7 @@
   --accent-text: #ffffff;
   --success: #16a34a;
   --glow: rgba(11, 111, 224, 0.13);
+  --accent-soft: color-mix(in srgb, var(--accent) 72%, var(--text));
   --grid: rgba(10, 18, 32, 0.05);
   --name-gradient: linear-gradient(180deg, #0a1220 35%, #5a6b88 100%);
   --frame-bg: #e6ecf7;
@@ -38,5 +40,12 @@
 
 :root {
   --font-display: "Inter Tight", "Inter", system-ui, sans-serif;
+  --font-heading: "Space Grotesk", var(--font-display);
   --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --motion-fast: 0.2s;
+  --motion-base: 0.3s;
+  --ease-standard: cubic-bezier(0.2, 0.7, 0.2, 1);
 }

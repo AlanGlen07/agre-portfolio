@@ -1,21 +1,18 @@
 /* Typed intro (home page) */
 .typed {
-  --hl: #2f8cff;
+  --hl: var(--accent);
   max-width: 620px;
   font-family: var(--font-mono);
-  font-size: clamp(1.15rem, 2.3vw, 1.6rem);   /* short lines, so bigger like the reference */
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
   line-height: 1.5;
   letter-spacing: -0.02em;
   text-align: left;
   /* soft periwinkle base, like the reference */
   color: color-mix(in srgb, var(--text) 74%, var(--accent));
 }
-.typed[data-tone="blue"]   { --hl: #2f8cff; }
-.typed[data-tone="cyan"]   { --hl: #19d3f3; }
-.typed[data-tone="violet"] { --hl: #a58bff; }
-[data-theme="light"] .typed[data-tone="blue"]   { --hl: #0b6fe0; }
-[data-theme="light"] .typed[data-tone="cyan"]   { --hl: #0891b2; }
-[data-theme="light"] .typed[data-tone="violet"] { --hl: #6d4ae0; }
+.typed[data-tone="blue"],
+.typed[data-tone="cyan"],
+.typed[data-tone="violet"] { --hl: var(--accent); }
 
 .typed-stage { display: grid; }
 .typed-stage > * { grid-area: 1 / 1; }

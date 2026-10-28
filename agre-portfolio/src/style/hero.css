@@ -14,28 +14,29 @@
 
 .hero-inner {
   position: relative;
-  max-width: 1040px; margin: 0 auto;
-  display: grid; grid-template-columns: 1fr 350px;
-  gap: 56px; align-items: center;
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 400px;
+  gap: 72px; align-items: center;
 }
 
 .status-chip {
   display: inline-flex; align-items: center; gap: 10px;
-  padding: 9px 13px; border: 1px solid var(--border); background: var(--bg-elev);
-  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.12em;
+  padding: 9px 13px; border: 1px solid var(--border); border-radius: var(--radius-md);
+  background: var(--bg-elev);
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em;
   text-transform: uppercase; color: var(--text-muted);
 }
 .status-chip b { color: var(--text); }
 
 .hello {
   margin: 38px 0 14px;
-  font-family: var(--font-mono); font-size: 14px; font-weight: 600;
+  font-family: var(--font-mono); font-size: 16px; font-weight: 600;
   letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent);
 }
 
 .name {
   margin: 0;
-  font-size: clamp(3.1rem, 7.6vw, 6rem);
+  font-size: clamp(3.5rem, 8vw, 7rem);
   font-weight: 800; line-height: 0.92; letter-spacing: -0.055em;
   text-transform: uppercase;
   background: var(--name-gradient);
@@ -45,7 +46,7 @@
 
 .role {
   margin: 30px 0 20px;
-  font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.2em;
+  font-family: var(--font-mono); font-size: 16px; letter-spacing: 0.2em;
   text-transform: uppercase; color: var(--text-muted);
 }
 .role b { color: var(--accent); font-weight: 700; }
@@ -53,12 +54,12 @@
 /* the typed intro lives in style/typing.css, buttons in style/buttons.css */
 .cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 34px; }
 
-.stats { list-style: none; margin: 52px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 34px; }
+.stats { list-style: none; margin: 60px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 40px; }
 .stats li { padding-left: 14px; border-left: 1px solid var(--border); }
-.stats strong { display: block; font-family: var(--font-mono); font-size: 26px; font-weight: 600; }
+.stats strong { display: block; font-family: var(--font-mono); font-size: 30px; font-weight: 600; }
 .stats span {
   display: block; margin-top: 8px;
-  font-family: var(--font-mono); font-size: 9.5px;
+  font-family: var(--font-mono); font-size: 11px;
   letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim);
 }
 
@@ -79,7 +80,7 @@
   background: var(--frame-bg);
   border: 1px solid var(--border);
   overflow: hidden;
-  clip-path: polygon(0 0, 100% 0, 100% 92%, 94% 100%, 0 100%);
+  border-radius: var(--radius-lg);
 }
 /* Blue stage glow behind the portrait */
 .frame::before {
@@ -143,7 +144,7 @@
 .tag {
   position: absolute; right: -34px; top: 40%; z-index: 3;
   padding: 11px 14px;
-  background: var(--bg-elev); border: 1px solid var(--border);
+  background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--radius-sm);
   font-family: var(--font-mono); font-size: 12px; color: var(--accent);
 }
 
@@ -158,7 +159,7 @@
 @media (max-width: 900px) {
   .hero { padding-top: 44px; }
   .hero-inner { grid-template-columns: 1fr; gap: 52px; }
-  .portrait { max-width: 350px; width: 100%; }
+  .portrait { max-width: 400px; width: 100%; }
   .tag { right: -8px; }
   .scroll-hint { display: none; }
 }

@@ -11,6 +11,7 @@
   width: min(860px, 100%); height: min(620px, 88vh);
   background: #070b12; color: #cdd6e4;
   border: 1px solid #16233a;
+  border-radius: var(--radius-lg);
   font-family: var(--font-mono);
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 60px rgba(30, 144, 255, 0.12);
   animation: t-zoom 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -94,21 +95,16 @@
 .banner-cta b { color: #3b9eff; }
 .hire-btn {
   display: inline-block; padding: 14px 18px; font-size: 11px;
-  background: #1e90ff; color: #fff; text-decoration: none;
-  box-shadow: 4px 4px 0 #0b4a99;
-  animation: t-pulse 1.8s ease-in-out infinite;
+  background: var(--bg-elev); color: var(--text); text-decoration: none;
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
   transition: transform 0.12s, box-shadow 0.12s;
 }
-.hire-btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #0b4a99; }
-.hire-btn:active { transform: translate(4px, 4px); box-shadow: 0 0 0 #0b4a99; }
+.hire-btn:hover { transform: translateY(-2px); border-color: var(--accent); }
+.hire-btn:active { transform: translateY(0); }
 
 @keyframes t-fade { from { opacity: 0; } }
 @keyframes t-zoom { from { opacity: 0; transform: scale(0.93) translateY(10px); } }
 @keyframes t-blink { 50% { opacity: 0.35; } }
-@keyframes t-pulse {
-  50% { box-shadow: 4px 4px 0 #0b4a99, 0 0 22px rgba(30, 144, 255, 0.55); }
-}
-
 @media (max-width: 560px) {
   .term-title { display: none; }
   .term-body { padding: 18px 14px 28px; font-size: 11px; }

@@ -28,7 +28,7 @@ export default function Certificates() {
             <b>04</b> Certifications
           </p>
           <h2 className="certs-title">
-            Validated knowledge.
+            Validated <span className="accent-text">knowledge</span>.
             <br />
             Constant growth.
           </h2>
@@ -51,7 +51,7 @@ export default function Certificates() {
                 }}
               >
                 <div className="cert-top">
-                  <Award size={20} className="cert-award" />
+                  <Award size={24} className="cert-award" />
                   <span className="cert-code">{c.code}</span>
                 </div>
 

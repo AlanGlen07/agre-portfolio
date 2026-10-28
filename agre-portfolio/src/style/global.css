@@ -16,6 +16,20 @@ body {
   transition: background 0.3s ease, color 0.3s ease;
 }
 
+main > section:not(.hero) > div {
+  width: min(1200px, 100%);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.accent-text {
+  background: linear-gradient(100deg, var(--accent-soft), var(--accent) 52%, var(--accent-soft));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
 button { font: inherit; color: inherit; cursor: pointer; }
 a { color: inherit; text-decoration: none; }
 

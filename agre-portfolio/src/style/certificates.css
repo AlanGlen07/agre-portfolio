@@ -1,17 +1,17 @@
-.certs { padding: 90px 24px 120px; }
-.certs-inner { max-width: 1040px; margin: 0 auto; }
+.certs { padding: 100px 24px 120px; }
+.certs-inner { max-width: 1200px; margin: 0 auto; }
 
-.certs-head { padding-bottom: 36px; border-bottom: 1px solid var(--border); }
+.certs-head { padding-bottom: 40px; border-bottom: 1px solid var(--border); }
 .certs-label {
-  margin: 0 0 22px;
-  font-family: var(--font-mono); font-size: 8px;
-  letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim);
+  margin: 0 0 24px;
+  font-family: var(--font-mono); font-size: 14px; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted);
 }
 .certs-label b { color: var(--accent); margin-right: 14px; font-weight: 600; }
 .certs-title {
   margin: 0;
-  font-size: clamp(2.4rem, 5.4vw, 3.9rem);
-  font-weight: 300; line-height: 0.98; letter-spacing: -0.045em; color: var(--text);
+  font-family: var(--font-heading); font-size: clamp(2.8rem, 6vw, 4.8rem);
+  font-weight: 600; line-height: 1.05; letter-spacing: -0.025em; color: var(--text);
 }
 
 .certs-grid {
@@ -23,39 +23,40 @@
 .cert-card {
   position: relative; cursor: pointer;
   display: flex; flex-direction: column; justify-content: space-between;
-  min-height: 224px; padding: 26px 24px 20px;
-  border: 1px solid var(--border); background: var(--bg-elev);
+  min-height: 270px; padding: 32px 30px 26px;
+  border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--bg-elev);
   transition: transform 0.25s, border-color 0.25s, background 0.25s;
 }
 .cert-card::before {
   content: ""; position: absolute; inset: 6px; pointer-events: none;
-  border: 1px solid var(--border); transition: border-color 0.25s;
+  border: 1px solid var(--border); border-radius: calc(var(--radius-lg) - 6px); transition: border-color 0.25s;
 }
 .cert-card:hover, .cert-card:focus-visible {
   transform: translateY(-3px);
   border-color: var(--accent);
-  background: linear-gradient(180deg, var(--bg-elev) 40%, var(--glow));
+  background: var(--bg-elev);
 }
 .cert-card:hover::before, .cert-card:focus-visible::before { border-color: var(--accent); }
 
 .cert-top { display: flex; justify-content: space-between; align-items: flex-start; }
 .cert-award { color: var(--accent); }
-.cert-code { font-family: var(--font-mono); font-size: 7px; letter-spacing: 0.18em; color: var(--text-dim); }
+.cert-code { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.18em; color: var(--text-dim); }
 
 .cert-meta {
   margin: 0 0 12px;
-  font-family: var(--font-mono); font-size: 7px;
+  font-family: var(--font-mono); font-size: 10px;
   letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-dim);
 }
 .cert-bottom h3 {
-  margin: 0 0 10px; font-size: 17px; font-weight: 400;
+  margin: 0 0 12px; font-size: 19px; font-weight: 500;
   letter-spacing: -0.02em; color: var(--text);
 }
 .cert-issuer {
   display: flex; justify-content: space-between; align-items: center;
-  font-size: 10px; font-weight: 300; color: var(--text-muted);
+  font-size: 13px; font-weight: 400; color: var(--text-muted);
 }
 .cert-issuer a { display: grid; place-items: center; padding: 4px; color: var(--text-muted); transition: color 0.2s; }
+.cert-issuer a svg { width: 18px; height: 18px; }
 .cert-issuer a:hover { color: var(--accent); }
 
 /* Lightbox */
@@ -66,8 +67,8 @@
   animation: lb-fade 0.2s ease;
 }
 .lightbox-panel {
-  position: relative; width: min(920px, 100%);
-  background: var(--bg-elev); border: 1px solid var(--border);
+  position: relative; width: min(1040px, 100%);
+  background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden;
   animation: lb-zoom 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .lightbox-panel img {
@@ -80,8 +81,8 @@
   display: flex; justify-content: space-between; align-items: center; gap: 16px;
   padding: 16px 20px; border-top: 1px solid var(--border);
 }
-.lightbox-caption strong { display: block; font-size: 15px; font-weight: 500; color: var(--text); }
-.lightbox-caption span { font-size: 11px; font-weight: 300; color: var(--text-muted); }
+.lightbox-caption strong { display: block; font-size: 17px; font-weight: 500; color: var(--text); }
+.lightbox-caption span { font-size: 13px; font-weight: 400; color: var(--text-muted); }
 .lightbox-caption a {
   display: inline-flex; align-items: center; gap: 7px;
   font-family: var(--font-mono); font-size: 9px; font-weight: 700;
@@ -92,18 +93,24 @@
 .cert-fallback {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: 10px; aspect-ratio: 1.414; margin: 18px 18px 0; padding: 24px; text-align: center;
-  border: 3px double var(--accent); background: var(--frame-bg); color: var(--accent);
+  border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--frame-bg); color: var(--accent);
 }
 .cert-fallback p {
   margin: 0; font-family: var(--font-mono); font-size: 10px;
   letter-spacing: 0.24em; text-transform: uppercase; color: var(--text-dim);
 }
 .cert-fallback h4 { margin: 0; font-size: clamp(1.4rem, 3vw, 2.2rem); font-weight: 300; letter-spacing: -0.03em; color: var(--text); }
-.cert-fallback span { font-size: 12px; color: var(--text-muted); }
+.cert-fallback span { font-size: 14px; color: var(--text-muted); }
 
 @keyframes lb-fade { from { opacity: 0; } }
 @keyframes lb-zoom { from { opacity: 0; transform: scale(0.92); } }
 
 @media (max-width: 860px) {
   .certs-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 520px) {
+  .certs { padding-right: 18px; padding-left: 18px; }
+  .cert-card { min-height: 240px; padding: 28px 24px 24px; }
+  .certs-title { font-size: clamp(2.4rem, 11vw, 3.6rem); }
 }

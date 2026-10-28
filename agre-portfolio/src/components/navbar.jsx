@@ -4,15 +4,14 @@ import ThemeToggle from "./ThemeToggle";
 import Terminal from "./terminal";
 import "../style/navbar.css";
 
-// `color` tints the whole bar + the popped-up icon when that item is active
 const links = [
-  { id: "home", label: "Home", icon: Home, color: "#1e90ff" },
-  { id: "about", label: "About", icon: User, color: "#8b5cf6" },
-  { id: "skills", label: "Skills", icon: Code2, color: "#06b6d4" },
-  { id: "projects", label: "Projects", icon: Folder, color: "#22c55e" },
-  { id: "certificates", label: "Certificates", icon: Award, color: "#eab308" },
-  { id: "contact", label: "Contact", icon: Mail, color: "#ec4899" },
-  { id: "cli", label: "CLI", icon: TerminalIcon, color: "#f97316" },
+  { id: "home", label: "Home", icon: Home },
+  { id: "about", label: "About", icon: User },
+  { id: "skills", label: "Skills", icon: Code2 },
+  { id: "projects", label: "Projects", icon: Folder },
+  { id: "certificates", label: "Certificates", icon: Award },
+  { id: "contact", label: "Contact", icon: Mail },
+  { id: "cli", label: "CLI", icon: TerminalIcon },
 ];
 
 export default function Navbar() {
@@ -38,8 +37,6 @@ export default function Navbar() {
   }, []);
 
   const current = termOpen ? "cli" : active;
-  const currentColor = links.find((l) => l.id === current)?.color;
-
   return (
     <>
       <header className="site-header">
@@ -52,7 +49,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        <nav className="nav" aria-label="Primary" style={{ "--nav-accent": currentColor }}>
+        <nav className="nav" aria-label="Primary">
           <ul>
             {links.map(({ id, label, icon: Icon }) => {
               const isActive = current === id;

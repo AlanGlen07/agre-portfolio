@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { GitBranch, ExternalLink } from "lucide-react";
+import { GitBranch } from "lucide-react";
 import { projects } from "../../data/projects";
 import "../../style/project.css";
 
@@ -32,7 +32,9 @@ export default function Projects() {
             <p className="projects-label">
               <b>03</b> Selected projects
             </p>
-            <h2 className="projects-title">Built to solve. Designed to last.</h2>
+            <h2 className="projects-title">
+              Built to <span className="accent-text">solve</span>. Designed to last.
+            </h2>
           </div>
           <p className="projects-sub">
             A selection of product experiences combining engineering with
@@ -86,7 +88,6 @@ export default function Projects() {
                     onMouseLeave={() => setHover(null)}
                   >
                     <path className="wire" d={d} pathLength="1" />
-                    <path className="pulse" d={d} pathLength="1" />
                     <circle className="end-dot" cx={END_X} cy={y} r="3.5" />
                     <g className="tech-node">
                       <rect x={END_X + 10} y={y - 18} width="130" height="36" />
@@ -125,9 +126,6 @@ export default function Projects() {
             <div className="project-links">
               <a href={project.source} target="_blank" rel="noreferrer">
                 <GitBranch size={14} /> Source code
-              </a>
-              <a href={project.live} target="_blank" rel="noreferrer">
-                <ExternalLink size={14} /> Live preview
               </a>
             </div>
           </div>

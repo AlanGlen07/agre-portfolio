@@ -65,7 +65,7 @@ export default function Contacts() {
               <b>05</b> Contact
             </p>
             <h2 className="contact-title">
-              Let’s build something exceptional.
+              Let’s build <span className="accent-text">something</span> exceptional.
             </h2>
           </div>
           <p className="contact-sub">

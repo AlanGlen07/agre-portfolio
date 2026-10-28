@@ -1,72 +1,50 @@
-/* Neon button: dark fill, glowing blue border, white label (the "GROW" reference).
-   Use: <a|button className="neon-btn"> ; modifiers: --sm  --icon  --dim */
 .neon-btn {
-  --nb-color: #2bb8ff;
-  --nb-deep: #1e90ff;
-  --nb-top: #0d1b36;
-  --nb-bottom: #060e20;
-  --nb-text: #f4f9ff;
+  --nb-color: color-mix(in srgb, var(--accent) 58%, var(--border));
+  --nb-top: color-mix(in srgb, var(--accent) 12%, var(--bg-elev));
+  --nb-bottom: var(--bg-elev);
+  --nb-text: var(--text);
 
   position: relative;
   display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-  min-height: 50px; padding: 0 28px;
-  border: 1.5px solid var(--nb-color);
-  border-radius: 12px;
+  min-height: 56px; padding: 0 32px;
+  border: 1px solid var(--nb-color);
+  border-radius: var(--radius-md);
   background: linear-gradient(180deg, var(--nb-top), var(--nb-bottom));
   color: var(--nb-text);
   font-family: var(--font-display);
-  font-size: 13px; font-weight: 600; line-height: 1;
+  font-size: 15px; font-weight: 600; line-height: 1;
   letter-spacing: 0.12em; text-transform: uppercase; text-align: center; white-space: nowrap;
-  text-shadow: 0 0 10px color-mix(in srgb, var(--nb-color) 55%, transparent);
-  box-shadow:
-    0 0 12px color-mix(in srgb, var(--nb-color) 55%, transparent),
-    0 0 30px color-mix(in srgb, var(--nb-deep) 32%, transparent),
-    inset 0 0 12px color-mix(in srgb, var(--nb-color) 32%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--nb-color) 12%, transparent);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  transition: transform 0.2s ease, box-shadow 0.25s ease, border-color 0.25s, color 0.25s;
+  transition: transform var(--motion-fast) ease, box-shadow var(--motion-base) ease, border-color var(--motion-base), color var(--motion-base);
 }
 .neon-btn svg { flex-shrink: 0; }
 
 .neon-btn:hover,
 .neon-btn:focus-visible {
   transform: translateY(-2px);
-  border-color: #6fd4ff;
-  box-shadow:
-    0 0 16px color-mix(in srgb, var(--nb-color) 75%, transparent),
-    0 0 42px color-mix(in srgb, var(--nb-deep) 50%, transparent),
-    inset 0 0 18px color-mix(in srgb, var(--nb-color) 45%, transparent);
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 22%, transparent);
 }
 .neon-btn:active { transform: translateY(0) scale(0.97); }
 .neon-btn:disabled, .neon-btn[aria-disabled="true"] { opacity: 0.5; pointer-events: none; }
 
 /* sizes */
-.neon-btn--sm { min-height: 38px; padding: 0 16px; border-radius: 10px; gap: 8px; font-size: 10.5px; }
+.neon-btn--sm { min-height: 42px; padding: 0 18px; border-radius: var(--radius-sm); gap: 8px; font-size: 12px; }
 .neon-btn--icon { width: 44px; min-height: 0; height: 44px; padding: 0; }
 .neon-btn--icon.neon-btn--sm { width: 34px; height: 34px; }
 
 /* quieter glow for inactive items (project tabs) ; .active brings the full glow back */
 .neon-btn--dim {
-  border-color: color-mix(in srgb, var(--nb-color) 40%, transparent);
-  color: color-mix(in srgb, var(--nb-text) 70%, transparent);
-  text-shadow: none;
-  box-shadow: inset 0 0 8px color-mix(in srgb, var(--nb-color) 14%, transparent);
+  border-color: color-mix(in srgb, var(--border) 80%, var(--accent));
+  color: var(--text-muted);
+  box-shadow: none;
 }
 .neon-btn--dim:hover { color: var(--nb-text); }
 
-/* light theme: white fill, same glowing blue edge */
 [data-theme="light"] .neon-btn {
-  --nb-color: #0b7bff;
-  --nb-deep: #0b6fe0;
-  --nb-top: #ffffff;
-  --nb-bottom: #e8f1ff;
-  --nb-text: #06306b;
-  text-shadow: none;
-  box-shadow:
-    0 0 10px color-mix(in srgb, var(--nb-color) 35%, transparent),
-    0 0 24px color-mix(in srgb, var(--nb-deep) 18%, transparent),
-    inset 0 0 10px color-mix(in srgb, var(--nb-color) 14%, transparent);
+  --nb-color: color-mix(in srgb, var(--accent) 48%, var(--border));
+  --nb-top: color-mix(in srgb, var(--accent) 5%, var(--bg-elev));
 }
-[data-theme="light"] .neon-btn:hover,
-[data-theme="light"] .neon-btn:focus-visible { border-color: #3a9bff; }
 [data-theme="light"] .neon-btn--dim { box-shadow: none; }
