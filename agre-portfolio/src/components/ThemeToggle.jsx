@@ -8,7 +8,7 @@ export default function ThemeToggle() {
   return (
     <button
       type="button"
-      className="theme-toggle"
+      className="theme-toggle neon-btn neon-btn--icon neon-btn--sm"
       onClick={toggleTheme}
       aria-label={`Switch to ${next} mode`}
       title={`Switch to ${next} mode`}

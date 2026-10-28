@@ -18,7 +18,19 @@ const HOME_GAP = 24;   // resting spot (bottom-right) when the cursor leaves the
 const STIFFNESS = 140; // higher = snappier
 const DAMPING = 13;    // below 2*sqrt(STIFFNESS) (~23.7) => a little spring overshoot
 
+// Trail: one restrained palette, head -> tail = cyan -> electric blue -> violet
+const TRAIL_LIFE = 650;   // ms a trail point stays visible
+const MAX_PARTICLES = 24;
+const PALETTE = [[0, 229, 255], [30, 144, 255], [139, 92, 246]];
+
 const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
+const trailColor = (t) => {
+  const s = clamp(t, 0, 1) * 2;
+  const i = Math.min(1, Math.floor(s));
+  const f = s - i;
+  const a = PALETTE[i], b = PALETTE[i + 1];
+  return [a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f, a[2] + (b[2] - a[2]) * f];
+};
 
 function useFollowMode() {
   const [follow, setFollow] = useState(() => window.matchMedia(FOLLOW_QUERY).matches);
@@ -37,11 +49,95 @@ export default function FloatingAvatar() {
   const follow = useFollowMode();
   const rootRef = useRef(null);
   const tiltRef = useRef(null);
+  const canvasRef = useRef(null);
 
   useEffect(() => {
     if (!follow) return;
     const root = rootRef.current;
     const tilt = tiltRef.current;
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+
+    // ---- glow trail (canvas, drawn inside the same rAF loop) ----
+    let vw = 0, vh = 0;
+    const trail = [];      // { x, y, t, s }  s = speed factor 0..1
+    const particles = [];  // tiny sparks shed while moving fast
+
+    const sizeCanvas = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      vw = window.innerWidth;
+      vh = window.innerHeight;
+      canvas.width = vw * dpr;
+      canvas.height = vh * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    sizeCanvas();
+
+    const drawFx = (now, dt, speed) => {
+      // add a trail point at the robot's body
+      const cx = pos.x + w / 2;
+      const cy = pos.y + w * 0.6;
+      const lastPt = trail[trail.length - 1];
+      if (!lastPt || Math.hypot(cx - lastPt.x, cy - lastPt.y) > 3) {
+        trail.push({ x: cx, y: cy, t: now, s: clamp(speed / 900, 0.25, 1) });
+      }
+      while (trail.length && now - trail[0].t > TRAIL_LIFE) trail.shift();
+
+      // shed a spark now and then while moving fast
+      if (speed > 350 && particles.length < MAX_PARTICLES && Math.random() < 0.5) {
+        particles.push({
+          x: cx + (Math.random() - 0.5) * 16,
+          y: cy + (Math.random() - 0.5) * 16,
+          vx: (Math.random() - 0.5) * 30 - vel.x * 0.04,
+          vy: (Math.random() - 0.5) * 30 - vel.y * 0.04,
+          life: 1,
+          size: 1 + Math.random() * 1.6,
+          hue: Math.random(),
+        });
+      }
+
+      const light = document.documentElement.dataset.theme === "light";
+      const boost = light ? 1.5 : 1;
+      ctx.clearRect(0, 0, vw, vh);
+      ctx.globalCompositeOperation = light ? "source-over" : "lighter";
+      ctx.lineCap = "round";
+
+      for (let i = 1; i < trail.length; i++) {
+        const p0 = trail[i - 1];
+        const p1 = trail[i];
+        const age = (now - p1.t) / TRAIL_LIFE; // 0 = fresh, 1 = about to vanish
+        const life = 1 - age;
+        const [r, g, b] = trailColor(age);
+        const width = 3 + 13 * life * p1.s;
+        const col = `${r | 0},${g | 0},${b | 0}`;
+
+        ctx.beginPath();
+        ctx.moveTo(p0.x, p0.y);
+        ctx.lineTo(p1.x, p1.y);
+        ctx.strokeStyle = `rgba(${col},${0.16 * life * boost})`; // soft outer glow
+        ctx.lineWidth = width * 2.2;
+        ctx.stroke();
+        ctx.strokeStyle = `rgba(${col},${0.55 * life * boost})`; // bright core
+        ctx.lineWidth = width * 0.55;
+        ctx.stroke();
+      }
+
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.life -= dt * 1.6;
+        if (p.life <= 0) {
+          particles.splice(i, 1);
+          continue;
+        }
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        const [r, g, b] = trailColor(p.hue * 0.7);
+        ctx.fillStyle = `rgba(${r | 0},${g | 0},${b | 0},${0.8 * p.life * boost})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size * p.life + 0.4, 0, 6.283);
+        ctx.fill();
+      }
+    };
 
     let w = root.offsetWidth;
     let h = root.offsetHeight;
@@ -75,6 +171,8 @@ export default function FloatingAvatar() {
       const speed = Math.hypot(vel.x, vel.y);
       apply(Math.min(speed / 3000, 0.1));
 
+      drawFx(now, dt, speed);
+
       const settled =
         Math.abs(target.x - pos.x) < 0.3 &&
         Math.abs(target.y - pos.y) < 0.3 &&
@@ -86,10 +184,11 @@ export default function FloatingAvatar() {
         pos.y = target.y;
         vel.x = vel.y = lean = 0;
         apply();
-        raf = 0; // loop sleeps until the next mouse move
-      } else {
-        raf = requestAnimationFrame(step);
       }
+
+      // keep looping until the robot has settled AND the trail has faded out
+      if (settled && trail.length === 0 && particles.length === 0) raf = 0;
+      else raf = requestAnimationFrame(step);
     };
 
     const wake = () => {
@@ -110,6 +209,7 @@ export default function FloatingAvatar() {
       moveTarget(p.x, p.y);
     };
     const onResize = () => {
+      sizeCanvas();
       w = root.offsetWidth;
       h = root.offsetHeight;
       moveTarget(target.x, target.y);
@@ -135,6 +235,7 @@ export default function FloatingAvatar() {
       window.removeEventListener("resize", onResize);
       document.documentElement.removeEventListener("mouseleave", onLeave);
       document.removeEventListener("visibilitychange", onVisibility);
+      ctx.clearRect(0, 0, vw, vh);
       root.style.transform = "";
       tilt.style.transform = "";
       delete root.dataset.ready;
@@ -142,24 +243,28 @@ export default function FloatingAvatar() {
   }, [follow]);
 
   return (
-    <div
-      ref={rootRef}
-      className={`robot-avatar ${follow ? "is-follow" : "is-static"}`}
-      aria-hidden="true"
-    >
-      <div className="robot-stage">
-        <span className="robot-aura" />
-        <div className="robot-bob">
-          <div className="robot-tilt" ref={tiltRef}>
-            <img src={robot} alt="" draggable={false} className="robot-image" />
+    <>
+      {follow && <canvas ref={canvasRef} className="robot-trail" aria-hidden="true" />}
+
+      <div
+        ref={rootRef}
+        className={`robot-avatar ${follow ? "is-follow" : "is-static"}`}
+        aria-hidden="true"
+      >
+        <div className="robot-stage">
+          <span className="robot-aura" />
+          <div className="robot-bob">
+            <div className="robot-tilt" ref={tiltRef}>
+              <img src={robot} alt="" draggable={false} className="robot-image" />
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="robot-label">
-        <span className="robot-dot" />
-        ALAN.pogi
+        <div className="robot-label">
+          <span className="robot-dot" />
+          ALAN.pogi
+        </div>
       </div>
-    </div>
+    </>
   );
 }
