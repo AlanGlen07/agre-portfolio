@@ -18,11 +18,12 @@
   list-style: none; margin: 56px 0 0; padding: 0;
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px;
 }
+.certs-grid > li { display: flex; min-width: 0; }
 
 .cert-card {
   position: relative; cursor: pointer;
   display: flex; flex-direction: column;
-  min-height: 340px;
+  width: 100%; height: 390px; box-sizing: border-box;
   border: 1px solid var(--border); border-radius: var(--radius-lg);
   background: var(--bg-elev);
   overflow: hidden;
@@ -35,7 +36,7 @@
 }
 
 .cert-image {
-  height: 220px;
+  flex: 0 0 220px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -44,6 +45,7 @@
 
 .cert-panel {
   display: flex; flex-direction: column;
+  flex: 1;
   gap: 12px;
   padding: 18px 18px 16px;
   background: rgba(9, 14, 22, 0.9);
@@ -134,7 +136,7 @@
 
 @media (max-width: 520px) {
   .certs { padding-right: 18px; padding-left: 18px; }
-  .cert-card { min-height: 300px; }
-  .cert-image { height: 180px; }
+  .cert-card { height: 360px; }
+  .cert-image { flex-basis: 180px; }
   .certs-title { font-size: clamp(2.4rem, 11vw, 3.6rem); }
 }

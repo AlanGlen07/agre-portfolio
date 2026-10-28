@@ -34,46 +34,49 @@ export default function Certificates() {
         </header>
 
         <ul className="certs-grid">
-          {certificates.map((c) => (
-            <li key={c.id}>
-              <div
-                className={`cert-card ${c.blank ? "cert-card--blank" : ""}`}
-                role={c.blank ? undefined : "button"}
-                tabIndex={c.blank ? -1 : 0}
-                aria-label={c.blank ? undefined : `View ${c.title} certificate`}
-                onClick={() => !c.blank && setSelected(c)}
-                onKeyDown={(e) => {
-                  if (c.blank) return;
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    setSelected(c);
-                  }
-                }}
-              >
-                {!c.blank && (
-                  <>
-                    <div
-                      className="cert-image"
-                      style={{ backgroundImage: `url(${c.image})` }}
-                    />
+          {certificates.map((c) => {
+            const isBlank = c.blank || !c.title || !c.image;
+            return (
+              <li key={c.id}>
+                <div
+                  className={`cert-card ${isBlank ? "cert-card--blank" : ""}`}
+                  role={isBlank ? undefined : "button"}
+                  tabIndex={isBlank ? -1 : 0}
+                  aria-label={isBlank ? undefined : `View ${c.title} certificate`}
+                  onClick={() => !isBlank && setSelected(c)}
+                  onKeyDown={(e) => {
+                    if (isBlank) return;
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setSelected(c);
+                    }
+                  }}
+                >
+                  {!isBlank && (
+                    <>
+                      <div
+                        className="cert-image"
+                        style={{ backgroundImage: `url(${c.image})` }}
+                      />
 
-                    <div className="cert-panel">
-                      <div className="cert-panel-top">
-                        <span className="cert-code">{c.code}</span>
-                        <Award size={18} className="cert-award" />
-                      </div>
+                      <div className="cert-panel">
+                        <div className="cert-panel-top">
+                          <span className="cert-code">{c.code}</span>
+                          <Award size={18} className="cert-award" />
+                        </div>
 
-                      <div className="cert-panel-body">
-                        <p className="cert-meta">{c.year} / Verified</p>
-                        <h3>{c.title}</h3>
-                        <p className="cert-description">Issued by {c.issuer}</p>
+                        <div className="cert-panel-body">
+                          <p className="cert-meta">{c.year} / Verified</p>
+                          <h3>{c.title}</h3>
+                          <p className="cert-description">Issued by {c.issuer}</p>
+                        </div>
                       </div>
-                    </div>
-                  </>
-                )}
-              </div>
-            </li>
-          ))}
+                    </>
+                  )}
+                </div>
+              </li>
+            );
+          })}
         </ul>
       </div>
 
