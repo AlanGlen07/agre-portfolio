@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import { Award, ExternalLink, X } from "lucide-react";
+import { Award, X } from "lucide-react";
 import { certificates } from "../../data/certificates";
 import "../../style/certificates.css";
 
 export default function Certificates() {
   const [selected, setSelected] = useState(null);
-  const [broken, setBroken] = useState({}); // ids whose image failed to load
+  const [broken, setBroken] = useState({});
 
-  // Close on Esc and lock page scroll while the viewer is open
   useEffect(() => {
     if (!selected) return;
     const onKey = (e) => e.key === "Escape" && setSelected(null);
@@ -38,39 +37,40 @@ export default function Certificates() {
           {certificates.map((c) => (
             <li key={c.id}>
               <div
-                className="cert-card"
-                role="button"
-                tabIndex={0}
-                aria-label={`View ${c.title} certificate`}
-                onClick={() => setSelected(c)}
+                className={`cert-card ${c.blank ? "cert-card--blank" : ""}`}
+                role={c.blank ? undefined : "button"}
+                tabIndex={c.blank ? -1 : 0}
+                aria-label={c.blank ? undefined : `View ${c.title} certificate`}
+                onClick={() => !c.blank && setSelected(c)}
                 onKeyDown={(e) => {
+                  if (c.blank) return;
                   if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
                     setSelected(c);
                   }
                 }}
               >
-                <div className="cert-top">
-                  <Award size={24} className="cert-award" />
-                  <span className="cert-code">{c.code}</span>
-                </div>
+                {!c.blank && (
+                  <>
+                    <div
+                      className="cert-image"
+                      style={{ backgroundImage: `url(${c.image})` }}
+                    />
 
-                <div className="cert-bottom">
-                  <p className="cert-meta">{c.year} / Verified</p>
-                  <h3>{c.title}</h3>
-                  <div className="cert-issuer">
-                    <span>Issued by {c.issuer}</span>
-                    <a
-                      href={c.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={`Verify ${c.title}`}
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <ExternalLink size={14} />
-                    </a>
-                  </div>
-                </div>
+                    <div className="cert-panel">
+                      <div className="cert-panel-top">
+                        <span className="cert-code">{c.code}</span>
+                        <Award size={18} className="cert-award" />
+                      </div>
+
+                      <div className="cert-panel-body">
+                        <p className="cert-meta">{c.year} / Verified</p>
+                        <h3>{c.title}</h3>
+                        <p className="cert-description">Issued by {c.issuer}</p>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </li>
           ))}
@@ -116,9 +116,6 @@ export default function Certificates() {
                 <strong>{selected.title}</strong>
                 <span>Issued by {selected.issuer} / {selected.year}</span>
               </div>
-              <a href={selected.url} target="_blank" rel="noreferrer">
-                Verify <ExternalLink size={13} />
-              </a>
             </div>
           </div>
         </div>
