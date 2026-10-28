@@ -133,7 +133,7 @@ export default function Contacts() {
               />
             </label>
 
-            <button type="submit" className="send-btn">
+            <button type="submit" className="neon-btn send-btn">
               Send transmission <ArrowRight size={16} />
             </button>
             {sent && (
@@ -157,15 +157,15 @@ export default function Contacts() {
             <div className="resume-bar">
               <span>Resume.pdf</span>
               <div className="resume-actions">
-                <a href={contact.resume} download={contact.resumeName} className="resume-btn primary">
+                <a href={contact.resume} download={contact.resumeName} className="neon-btn neon-btn--sm">
                   <Download size={14} /> Download PDF
                 </a>
-                <a href={contact.resume} target="_blank" rel="noreferrer" className="resume-btn">
+                <a href={contact.resume} target="_blank" rel="noreferrer" className="neon-btn neon-btn--sm">
                   <ExternalLink size={14} /> Open
                 </a>
                 <button
                   type="button"
-                  className="resume-close"
+                  className="neon-btn neon-btn--icon neon-btn--sm"
                   aria-label="Close"
                   onClick={() => setResumeOpen(false)}
                   autoFocus

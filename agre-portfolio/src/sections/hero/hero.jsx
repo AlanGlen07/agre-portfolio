@@ -1,6 +1,8 @@
 import { ArrowRight } from "lucide-react";
 import photo from "../../assets/images/myphoto.png";
 import cartoon from "../../assets/images/pixilated.png";
+import TypedText from "../../components/TypedText";
+import { leadVariants } from "../../data/hero";
 import "../../style/hero.css";
 
 const stats = [
@@ -27,16 +29,13 @@ export default function Hero() {
           <p className="role">
             <b>Frontend Developer</b> / UI Engineer
           </p>
-          <p className="lead">
-            I engineer fast, refined digital interfaces where thoughtful systems
-            meet bold visual craft. Built for people, polished for the future.
-          </p>
+          <TypedText variants={leadVariants} />
 
           <div className="cta">
-            <a href="#projects" className="btn btn-primary">
-              Explore my work <ArrowRight size={18} />
+            <a href="#projects" className="neon-btn">
+              Explore my work <ArrowRight size={16} />
             </a>
-            <a href="#contact" className="btn btn-ghost">
+            <a href="#contact" className="neon-btn">
               Start a conversation
             </a>
           </div>

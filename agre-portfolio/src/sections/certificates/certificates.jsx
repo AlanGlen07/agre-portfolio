@@ -88,7 +88,7 @@ export default function Certificates() {
           <div className="lightbox-panel" onClick={(e) => e.stopPropagation()}>
             <button
               type="button"
-              className="lightbox-close"
+              className="lightbox-close neon-btn neon-btn--icon neon-btn--sm"
               aria-label="Close"
               onClick={() => setSelected(null)}
               autoFocus
