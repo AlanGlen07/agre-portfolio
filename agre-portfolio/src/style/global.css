@@ -1,10 +1,11 @@
 @import "./variable.css";
+@import "./buttons.css";
 
 *,
 *::before,
 *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; scroll-padding-top: 180px; }
+html { scroll-behavior: smooth; scroll-padding-top: 146px; }
 
 body {
   margin: 0;

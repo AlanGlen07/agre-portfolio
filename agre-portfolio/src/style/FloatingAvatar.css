@@ -2,7 +2,8 @@
 .robot-avatar {
   position: fixed;
   z-index: 1000;
-  width: 96px;
+  --robot-size: 64px;              /* change this one value to resize the robot */
+  width: var(--robot-size);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,7 +17,17 @@
 .robot-avatar.is-follow:not([data-ready]) { opacity: 0; } /* no flash at 0,0 before first frame */
 
 /* touch, small screens, reduced motion: rests in the corner, no JS loop */
-.robot-avatar.is-static { right: 16px; bottom: 16px; width: 72px; }
+.robot-avatar.is-static { --robot-size: 48px; right: 16px; bottom: 16px; }
+
+/* glow trail canvas: sits just under the robot, ignores the mouse */
+.robot-trail {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  pointer-events: none;
+}
 
 .robot-stage { position: relative; width: 100%; }
 
@@ -44,8 +55,8 @@
   height: auto;
   -webkit-user-drag: none;
   filter:
-    drop-shadow(0 0 5px rgba(0, 229, 255, 0.85))
-    drop-shadow(0 0 16px rgba(30, 144, 255, 0.7));
+    drop-shadow(0 0 4px rgba(0, 229, 255, 0.85))
+    drop-shadow(0 0 11px rgba(30, 144, 255, 0.7));
 }
 
 .robot-label {

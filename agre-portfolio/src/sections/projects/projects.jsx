@@ -46,7 +46,7 @@ export default function Projects() {
               key={p.id}
               role="tab"
               aria-selected={p.id === activeId}
-              className={p.id === activeId ? "tab active" : "tab"}
+              className={`tab neon-btn neon-btn--sm ${p.id === activeId ? "active" : "neon-btn--dim"}`}
               onClick={() => {
                 setActiveId(p.id);
                 setHover(null);

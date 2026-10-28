@@ -119,13 +119,7 @@
 .contact-form label:focus-within .field-label { color: var(--accent); }
 .contact-form textarea { min-height: 96px; }
 
-.send-btn {
-  display: inline-flex; align-items: center; gap: 22px; margin-top: 8px;
-  padding: 16px 20px; background: var(--accent); color: var(--accent-text); border: 0;
-  font-family: var(--font-mono); font-size: 9px; font-weight: 700;
-  letter-spacing: 0.14em; text-transform: uppercase; transition: transform 0.2s;
-}
-.send-btn:hover { transform: translateY(-2px); }
+.send-btn { margin-top: 8px; }
 .form-note { margin: 18px 0 0; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.06em; color: var(--accent); }
 
 /* Resume viewer */
@@ -147,21 +141,7 @@
   text-transform: uppercase; color: var(--text-dim);
 }
 .resume-actions { display: flex; align-items: center; gap: 8px; }
-.resume-btn {
-  display: inline-flex; align-items: center; gap: 8px; padding: 9px 12px;
-  border: 1px solid var(--border); color: var(--text);
-  font-family: var(--font-mono); font-size: 8px; font-weight: 700;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  transition: border-color 0.2s, color 0.2s;
-}
-.resume-btn:hover { border-color: var(--accent); color: var(--accent); }
-.resume-btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-text); }
-.resume-btn.primary:hover { color: var(--accent-text); opacity: 0.9; }
-.resume-close {
-  display: grid; place-items: center; width: 34px; height: 34px;
-  background: var(--bg); border: 1px solid var(--border); color: var(--text);
-}
-.resume-close:hover { border-color: var(--accent); color: var(--accent); }
+/* resume buttons use .neon-btn (buttons.css) */
 
 .resume-view { height: min(78vh, 880px); background: var(--frame-bg); }
 .resume-view iframe { display: block; width: 100%; height: 100%; border: 0; background: #fff; }

@@ -50,24 +50,8 @@
 }
 .role b { color: var(--accent); font-weight: 700; }
 
-.lead {
-  max-width: 580px; margin: 0;
-  font-size: clamp(1.05rem, 1.7vw, 1.2rem); line-height: 1.7; font-weight: 300;
-  color: var(--text-muted);
-}
-
-.cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
-.btn {
-  display: inline-flex; align-items: center; gap: 16px;
-  padding: 19px 26px;
-  font-family: var(--font-mono); font-size: 12px; font-weight: 700;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
-}
-.btn-primary { background: var(--accent); color: var(--accent-text); border: 1px solid var(--accent); }
-.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px -8px var(--accent); }
-.btn-ghost { border: 1px solid var(--border); color: var(--text); background: color-mix(in srgb, var(--bg-elev) 60%, transparent); }
-.btn-ghost:hover { border-color: var(--accent); transform: translateY(-3px); }
+/* the typed intro lives in style/typing.css, buttons in style/buttons.css */
+.cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 34px; }
 
 .stats { list-style: none; margin: 52px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 34px; }
 .stats li { padding-left: 14px; border-left: 1px solid var(--border); }
@@ -177,6 +161,9 @@
   .portrait { max-width: 350px; width: 100%; }
   .tag { right: -8px; }
   .scroll-hint { display: none; }
+}
+@media (max-width: 520px) {
+  .cta .neon-btn { flex: 1 1 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {

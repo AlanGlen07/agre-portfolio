@@ -24,18 +24,7 @@
 
 /* Project switcher */
 .project-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 44px 0 16px; }
-.tab {
-  padding: 11px 16px;
-  background: transparent; border: 1px solid var(--border);
-  font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--text-muted);
-  transition: color 0.2s, border-color 0.2s, background 0.2s;
-}
-.tab b { color: var(--accent); margin-right: 8px; font-weight: 600; }
-.tab:hover { color: var(--text); border-color: var(--text-dim); }
-.tab.active {
-  color: var(--text); border-color: var(--accent); background: var(--glow);
-}
+.tab b { color: inherit; margin-right: 2px; font-weight: 700; opacity: 0.8; }
 
 /* Card */
 .project-card {
