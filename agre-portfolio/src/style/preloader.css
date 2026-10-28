@@ -1,0 +1,249 @@
+.preloader {
+  --loader-cyan: #42f5ff;
+  --loader-blue: #398cff;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 50% 48%, rgba(12, 57, 78, 0.44), transparent 43%),
+    linear-gradient(180deg, #050a13 0%, #07131e 55%, #03070e 100%);
+  color: #e7fbff;
+  animation: preloader-reveal 0.7s ease-in-out 3.2s both;
+}
+
+.preloader-grid {
+  position: absolute;
+  inset: 42% -50% -38%;
+  z-index: -1;
+  transform: perspective(320px) rotateX(58deg);
+  transform-origin: top center;
+  background-image:
+    linear-gradient(rgba(40, 211, 255, 0.19) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(40, 211, 255, 0.19) 1px, transparent 1px);
+  background-size: 58px 42px;
+  mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 78%, transparent);
+  animation: preloader-grid-flow 0.7s linear infinite;
+}
+
+.preloader-scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.12;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 3px,
+    rgba(91, 220, 255, 0.14) 4px
+  );
+}
+
+.preloader-scene {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(390px, 82vw);
+  aspect-ratio: 1;
+  transform: translate(-50%, -59%);
+}
+
+.preloader-character {
+  position: absolute;
+  z-index: 3;
+  top: 3%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 16px rgba(48, 213, 255, 0.3));
+  animation: preloader-hover 1.5s ease-in-out infinite;
+}
+
+.preloader-orbit {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: 1%;
+  width: 58%;
+  height: 17%;
+  border: 1px solid rgba(67, 241, 255, 0.58);
+  border-radius: 50%;
+  transform: translateX(-50%) rotateX(66deg);
+  box-shadow: 0 0 12px rgba(24, 224, 255, 0.6), inset 0 0 14px rgba(24, 224, 255, 0.34);
+  animation: preloader-pulse 0.8s ease-in-out infinite alternate;
+}
+
+.preloader-orbit--two {
+  bottom: -3%;
+  width: 76%;
+  opacity: 0.48;
+  animation-delay: 0.2s;
+}
+
+.preloader-thruster {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: 7%;
+  width: 22%;
+  height: 35%;
+  transform: translateX(-50%);
+  transform-origin: top center;
+  opacity: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(84, 252, 255, 0.82),
+    rgba(43, 150, 255, 0.32) 42%,
+    transparent
+  );
+  filter: blur(13px);
+  clip-path: polygon(36% 0, 64% 0, 100% 100%, 0 100%);
+  animation: preloader-boost 2.5s ease-in-out infinite;
+}
+
+.preloader-particles {
+  position: absolute;
+  z-index: 2;
+  inset: 13% 7% 0;
+}
+
+.preloader-particles i {
+  position: absolute;
+  left: calc(12% + (var(--particle-index) * 4.4%));
+  top: calc(8% + ((var(--particle-index) % 6) * 13%));
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--loader-cyan);
+  box-shadow: 0 0 9px 2px rgba(65, 238, 255, 0.82);
+  opacity: 0;
+  animation: preloader-spark 1.25s ease-out infinite;
+  animation-delay: calc(var(--particle-index) * -0.075s);
+}
+
+.preloader-status {
+  position: absolute;
+  top: calc(50% + min(245px, 42vw));
+  left: 50%;
+  width: min(280px, 74vw);
+  text-align: center;
+  transform: translateX(-50%);
+}
+
+.preloader-kicker,
+.preloader-caption {
+  margin: 0;
+  font-family: var(--font-mono, monospace);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.preloader-kicker { color: rgba(202, 241, 255, 0.64); }
+
+.preloader-counter {
+  min-height: 34px;
+  margin: 11px 0 12px;
+  color: #f0fdff;
+  font-family: var(--font-mono, monospace);
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 15px rgba(66, 245, 255, 0.8);
+}
+
+.preloader-progress {
+  height: 3px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(146, 213, 232, 0.16);
+  box-shadow: 0 0 12px rgba(66, 245, 255, 0.12);
+}
+
+.preloader-progress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--loader-blue), var(--loader-cyan));
+  box-shadow: 0 0 11px var(--loader-cyan);
+  transition: width 0.08s linear;
+}
+
+.preloader-caption {
+  margin-top: 11px;
+  color: rgba(202, 241, 255, 0.42);
+  font-size: 8px;
+  letter-spacing: 0.14em;
+}
+
+.preloader--launch .preloader-character {
+  animation: preloader-launch 0.42s cubic-bezier(0.18, 0.75, 0.3, 1) both;
+}
+
+.preloader--launch .preloader-thruster {
+  opacity: 1;
+  animation: preloader-thruster-launch 0.42s ease-in forwards;
+}
+
+.preloader--launch .preloader-particles i {
+  animation-duration: 0.25s;
+}
+
+@keyframes preloader-hover {
+  0%, 100% { transform: translateY(3px); }
+  50% { transform: translateY(-9px); }
+}
+
+@keyframes preloader-pulse {
+  from { opacity: 0.42; transform: translateX(-50%) rotateX(66deg) scale(0.86); }
+  to { opacity: 1; transform: translateX(-50%) rotateX(66deg) scale(1.05); }
+}
+
+@keyframes preloader-boost {
+  0%, 55%, 100% { opacity: 0; transform: translateX(-50%) scaleY(0.3); }
+  68%, 86% { opacity: 0.85; transform: translateX(-50%) scaleY(1); }
+}
+
+@keyframes preloader-spark {
+  0%, 18% { opacity: 0; transform: translate(0, 8px) scale(0.5); }
+  44% { opacity: 0.9; }
+  100% { opacity: 0; transform: translate(calc((var(--particle-index) - 9) * 4px), -34px) scale(1.2); }
+}
+
+@keyframes preloader-grid-flow {
+  to { background-position: 0 42px, 0 0; }
+}
+
+@keyframes preloader-launch {
+  0% { opacity: 1; transform: translateY(-9px) scale(1); }
+  15% { transform: translateY(-18px) scale(1.04); }
+  100% { opacity: 0; transform: translateY(-125vh) scale(0.78); }
+}
+
+@keyframes preloader-thruster-launch {
+  0% { opacity: 0.8; transform: translateX(-50%) scaleY(1); }
+  100% { opacity: 0; transform: translateX(-50%) scaleY(2.2); }
+}
+
+@keyframes preloader-reveal {
+  to { opacity: 0; visibility: hidden; }
+}
+
+@media (max-height: 620px) {
+  .preloader-scene { width: min(300px, 68vh); transform: translate(-50%, -65%); }
+  .preloader-status { top: auto; bottom: 8vh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader-grid,
+  .preloader-orbit,
+  .preloader-character,
+  .preloader-thruster,
+  .preloader-particles i {
+    animation-duration: 3s;
+  }
+}

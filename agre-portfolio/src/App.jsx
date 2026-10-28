@@ -7,10 +7,12 @@ import Certificates from "./sections/certificates/certificates";
 import Contacts from "./sections/contacts/contacts";
 import Background3D from "./sections/hero/background3d";
 import FloatingAvatar from "./components/FloatingAvatar";
+import Preloader from "./components/Preloader";
 
 export default function App() {
   return (
     <>
+      <Preloader />
       <Background3D />
       <Navbar />
       <main>
