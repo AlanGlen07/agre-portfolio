@@ -1,7 +1,7 @@
 .hero {
   position: relative;
   min-height: calc(100vh - 120px);
-  padding: 64px 24px 100px;
+  padding: 48px 24px 100px;
   overflow: hidden;
 }
 /* soft glow behind the portrait (the 3D background is drawn by Background3D) */
@@ -157,7 +157,7 @@
 .scroll-hint i { width: 1px; height: 26px; background: linear-gradient(var(--accent), transparent); }
 
 @media (max-width: 900px) {
-  .hero { padding-top: 44px; }
+  .hero { padding-top: 36px; }
   .hero-inner { grid-template-columns: 1fr; gap: 52px; }
   .portrait { max-width: 400px; width: 100%; }
   .tag { right: -8px; }
