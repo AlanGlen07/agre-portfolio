@@ -65,15 +65,6 @@
 
 /* Portrait */
 .portrait { position: relative; margin: 0; }
-.portrait-meta {
-  display: flex; justify-content: space-between;
-  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.2em;
-  text-transform: uppercase; color: var(--text-dim);
-}
-.portrait-meta b { color: var(--accent); font-weight: 700; }
-.portrait-meta.top { margin-bottom: 12px; }
-.portrait-meta.bottom { margin-top: 12px; }
-
 .frame {
   --portrait-scan-duration: 5.5s;
   position: relative; aspect-ratio: 345 / 458;
@@ -157,14 +148,39 @@
 .scroll-hint i { width: 1px; height: 26px; background: linear-gradient(var(--accent), transparent); }
 
 @media (max-width: 900px) {
-  .hero { padding-top: 36px; }
-  .hero-inner { grid-template-columns: 1fr; gap: 52px; }
-  .portrait { max-width: 400px; width: 100%; }
+  .hero { padding: 36px 24px 72px; }
+  .hero-inner {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.8fr);
+    gap: 20px 24px;
+    align-items: center;
+  }
+  .name { font-size: clamp(2rem, 6.2vw, 3.5rem); }
+  .hero-copy { display: contents; }
+  .hero-identity { grid-column: 1; grid-row: 1; min-width: 0; }
+  .portrait {
+    grid-column: 2; grid-row: 1;
+    max-width: 400px; width: 100%; align-self: center;
+  }
+  .role, .typed, .cta, .stats { grid-column: 1 / -1; }
+  .role { margin: 4px 0 0; }
+  .typed { max-width: none; }
+  .cta { margin-top: 8px; }
+  .stats { margin-top: 16px; }
   .tag { right: -8px; }
   .scroll-hint { display: none; }
 }
 @media (max-width: 520px) {
+  .hero { padding: 36px 18px 56px; }
+  .hero-inner { grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.8fr); gap: 16px 12px; }
+  .status-chip { gap: 6px; padding: 7px 8px; font-size: 9px; letter-spacing: 0.06em; }
+  .hello { margin: 18px 0 8px; font-size: 12px; letter-spacing: 0.22em; }
+  .name { font-size: clamp(1.35rem, 6.8vw, 2.2rem); letter-spacing: -0.01em; }
+  .role { font-size: 12px; line-height: 1.6; letter-spacing: 0.12em; }
+  .typed { font-size: clamp(1rem, 5vw, 1.25rem); }
   .cta .neon-btn { flex: 1 1 100%; }
+  .stats { gap: 20px; }
+  .stats strong { font-size: 23px; }
+  .stats span { font-size: 9px; letter-spacing: 0.12em; }
 }
 
 @media (prefers-reduced-motion: reduce) {

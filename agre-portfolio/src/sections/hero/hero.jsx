@@ -16,16 +16,18 @@ export default function Hero() {
     <section id="home" className="hero">
       <div className="hero-inner">
         <div className="hero-copy">
-          <span className="status-chip">
-            <i className="dot" /> System online <b>– Baguio, PH</b>
-          </span>
+          <div className="hero-identity">
+            <span className="status-chip">
+              <i className="dot" /> System online <b>– Baguio, PH</b>
+            </span>
 
-          <p className="hello">Hello, I’m</p>
-          <h1 className="name">
-            Alan Glen R.
-            <br />
-            Escobar Jr.
-          </h1>
+            <p className="hello">Hello, I’m</p>
+            <h1 className="name">
+              Alan Glen R.
+              <br />
+              Escobar Jr.
+            </h1>
+          </div>
           <p className="role">
             <b>Frontend Developer</b> / UI Engineer
           </p>
@@ -51,10 +53,6 @@ export default function Hero() {
         </div>
 
         <figure className="portrait">
-          <div className="portrait-meta top">
-            
-          </div>
-
           <div className="frame">
             <img
               className="shot photo"
@@ -69,11 +67,6 @@ export default function Hero() {
             <span className="scan" aria-hidden="true" />
             <span className="corner tr" aria-hidden="true" />
             <span className="corner bl" aria-hidden="true" />
-          </div>
-         
-
-          <div className="portrait-meta bottom">
-           
           </div>
         </figure>
       </div>

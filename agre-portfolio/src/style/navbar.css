@@ -130,8 +130,8 @@
   .topbar { padding-bottom: 6px; }
   .availability { display: none; }
   .nav { margin-top: 32px; }
-  .nav ul { padding: 0 6px; }
-  .nav a { min-width: 0; padding: 16px 10px 14px; }
+  .nav ul { width: 100%; padding: 0 4px; justify-content: space-around; }
+  .nav a { flex: 1 1 0; min-width: 0; padding: 13px 3px 12px; }
   .nav-label { display: none; }      /* 7 items: icons only on phones */
   .nav a::after { bottom: 5px; }
 }
