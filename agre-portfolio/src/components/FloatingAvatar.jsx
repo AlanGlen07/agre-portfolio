@@ -2,24 +2,16 @@ import { useEffect, useRef, useState } from "react";
 import robot from "../assets/images/robot.png";
 import "../style/FloatingAvatar.css";
 
-/*
-  Cursor-following robot.
-  - Desktop (mouse + motion allowed): spring physics driven by requestAnimationFrame.
-  - Touch / small screens / reduced-motion: no JS loop, the robot rests bottom-right.
-  The robot never captures pointer events, so links and buttons underneath stay clickable.
-*/
-
 const FOLLOW_QUERY =
   "(hover: hover) and (pointer: fine) and (min-width: 761px) and (prefers-reduced-motion: no-preference)";
 
-const OFFSET = 28;     // gap between the cursor and the robot
-const MARGIN = 8;      // keep the robot inside the viewport
-const HOME_GAP = 24;   // resting spot (bottom-right) when the cursor leaves the page
-const STIFFNESS = 140; // higher = snappier
-const DAMPING = 13;    // below 2*sqrt(STIFFNESS) (~23.7) => a little spring overshoot
+const OFFSET = 28;
+const MARGIN = 8;
+const HOME_GAP = 24;
+const STIFFNESS = 140;
+const DAMPING = 13;
 
-// Trail: one restrained palette, head -> tail = cyan -> electric blue -> violet
-const TRAIL_LIFE = 650;   // ms a trail point stays visible
+const TRAIL_LIFE = 650;
 const MAX_PARTICLES = 24;
 const PALETTE = [[0, 229, 255], [30, 144, 255], [139, 92, 246]];
 
@@ -58,10 +50,9 @@ export default function FloatingAvatar() {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
 
-    // ---- glow trail (canvas, drawn inside the same rAF loop) ----
     let vw = 0, vh = 0;
-    const trail = [];      // { x, y, t, s }  s = speed factor 0..1
-    const particles = [];  // tiny sparks shed while moving fast
+    const trail = [];
+    const particles = [];
 
     const sizeCanvas = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
@@ -74,7 +65,6 @@ export default function FloatingAvatar() {
     sizeCanvas();
 
     const drawFx = (now, dt, speed) => {
-      // add a trail point at the robot's body
       const cx = pos.x + w / 2;
       const cy = pos.y + w * 0.6;
       const lastPt = trail[trail.length - 1];
@@ -83,7 +73,6 @@ export default function FloatingAvatar() {
       }
       while (trail.length && now - trail[0].t > TRAIL_LIFE) trail.shift();
 
-      // shed a spark now and then while moving fast
       if (speed > 350 && particles.length < MAX_PARTICLES && Math.random() < 0.5) {
         particles.push({
           x: cx + (Math.random() - 0.5) * 16,
@@ -105,7 +94,7 @@ export default function FloatingAvatar() {
       for (let i = 1; i < trail.length; i++) {
         const p0 = trail[i - 1];
         const p1 = trail[i];
-        const age = (now - p1.t) / TRAIL_LIFE; // 0 = fresh, 1 = about to vanish
+        const age = (now - p1.t) / TRAIL_LIFE;
         const life = 1 - age;
         const [r, g, b] = trailColor(age);
         const width = 3 + 13 * life * p1.s;
@@ -114,10 +103,10 @@ export default function FloatingAvatar() {
         ctx.beginPath();
         ctx.moveTo(p0.x, p0.y);
         ctx.lineTo(p1.x, p1.y);
-        ctx.strokeStyle = `rgba(${col},${0.16 * life * boost})`; // soft outer glow
+        ctx.strokeStyle = `rgba(${col},${0.16 * life * boost})`;
         ctx.lineWidth = width * 2.2;
         ctx.stroke();
-        ctx.strokeStyle = `rgba(${col},${0.55 * life * boost})`; // bright core
+        ctx.strokeStyle = `rgba(${col},${0.55 * life * boost})`;
         ctx.lineWidth = width * 0.55;
         ctx.stroke();
       }
@@ -159,13 +148,11 @@ export default function FloatingAvatar() {
       const dt = Math.min((now - last) / 1000, 1 / 30); // clamp so tab switches don't explode
       last = now;
 
-      // damped spring toward the target, per axis
       vel.x += (STIFFNESS * (target.x - pos.x) - DAMPING * vel.x) * dt;
       vel.y += (STIFFNESS * (target.y - pos.y) - DAMPING * vel.y) * dt;
       pos.x += vel.x * dt;
       pos.y += vel.y * dt;
 
-      // lean into the direction of travel, ease back when slowing down
       const wantLean = clamp(vel.x * 0.03, -16, 16);
       lean += (wantLean - lean) * Math.min(1, dt * 10);
       const speed = Math.hypot(vel.x, vel.y);
@@ -186,7 +173,6 @@ export default function FloatingAvatar() {
         apply();
       }
 
-      // keep looping until the robot has settled AND the trail has faded out
       if (settled && trail.length === 0 && particles.length === 0) raf = 0;
       else raf = requestAnimationFrame(step);
     };

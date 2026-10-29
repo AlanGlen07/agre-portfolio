@@ -9,7 +9,7 @@ const pillars = [
   { name: "Accessible UI", note: "Fast, readable and usable by everyone." },
 ];
 
-// "a {b} c" -> [{ text, hl }]  ({braces} = gradient highlight)
+
 const parse = (str) =>
   str
     .split(/(\{[^}]+\})/)
@@ -27,7 +27,7 @@ const slice = (segs, n) => {
   return out;
 };
 
-// turns true the first time the element scrolls into view, then stays true
+
 function useInViewOnce(ref, threshold = 0.2) {
   const [seen, setSeen] = useState(false);
   useEffect(() => {

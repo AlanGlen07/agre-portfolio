@@ -3,7 +3,7 @@ import { GitBranch } from "lucide-react";
 import { projects } from "../../data/projects";
 import "../../style/project.css";
 
-// Layout numbers for the SVG graph (viewBox 620 x 450)
+
 const W = 620;
 const H = 450;
 const START = { x: 190, y: H / 2 };
@@ -66,7 +66,7 @@ export default function Projects() {
               {String(projects.length).padStart(2, "0")}
             </span>
 
-            {/* key restarts the line animations whenever the project changes */}
+            {}
             <svg
               key={project.id}
               className="graph"

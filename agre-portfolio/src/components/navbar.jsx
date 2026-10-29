@@ -17,10 +17,10 @@ const links = [
 export default function Navbar() {
   const [active, setActive] = useState("home");
   const [termOpen, setTermOpen] = useState(false);
-  const [bump, setBump] = useState(0); // changes on every click so the bounce replays
-  const lockUntil = useRef(0); // after a click, ignore scroll-spy while the page scrolls there
+  const [bump, setBump] = useState(0); 
+  const lockUntil = useRef(0); 
 
-  // Highlight the nav item for the section currently on screen
+  
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) =>
@@ -71,7 +71,7 @@ export default function Navbar() {
                       }
                     }}
                   >
-                    {/* new key on click = bounce animation restarts */}
+                    {}
                     <span className="nav-icon" key={isActive ? `on-${bump}` : "off"}>
                       <Icon size={16} />
                     </span>
@@ -84,7 +84,7 @@ export default function Navbar() {
         </nav>
       </header>
 
-      {/* Rendered outside the header so the overlay covers the whole screen */}
+      {}
       {termOpen && <Terminal onClose={() => setTermOpen(false)} />}
     </>
   );

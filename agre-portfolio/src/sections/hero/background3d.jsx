@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import "../../style/background.css";
 
-/* ---------- tiny 3D toolkit (no libraries needed) ---------- */
+
 const PHI = (1 + Math.sqrt(5)) / 2;
 
 const edgesFrom = (verts, len) => {
@@ -30,7 +30,7 @@ const ico = [];
 const cubeRaw = [];
 [-1, 1].forEach((x) => [-1, 1].forEach((y) => [-1, 1].forEach((z) => cubeRaw.push([x, y, z]))));
 
-// three crossed rings (a gyroscope)
+
 const gyro = (() => {
   const N = 44, v = [], e = [];
   for (let k = 0; k < 3; k++) {

@@ -3,11 +3,11 @@ import { skills } from "../../data/skills";
 import "../../style/skills.css";
 
 const REDUCED = "(prefers-reduced-motion: reduce)";
-const FILL_MS = 1500;   // how long a bar takes to fill
-const BASE_DELAY = 150; // pause between a card appearing and its bar starting
-const STAGGER = 140;    // extra delay per card (desktop only)
+const FILL_MS = 1500;   
+const BASE_DELAY = 150; 
+const STAGGER = 140;    
 
-// turns true the first time the element scrolls into view
+
 function useInViewOnce(ref, threshold = 0.3) {
   const [seen, setSeen] = useState(false);
   useEffect(() => {
@@ -36,7 +36,7 @@ function SkillCard({ skill, index }) {
   const [value, setValue] = useState(0);
   const [enterDelay, setEnterDelay] = useState(0);
 
-  // when this card scrolls into view: fade it in, then fill the bar and count up
+  
   useEffect(() => {
     const el = ref.current;
     if (!el || reduce) return;

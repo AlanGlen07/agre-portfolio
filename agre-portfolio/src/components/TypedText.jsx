@@ -1,26 +1,23 @@
 import { useEffect, useMemo, useState } from "react";
 import "../style/typing.css";
 
-/*
-  Typing animation: types a variant, holds, erases, then moves to the next one.
-  variants = [{ tone: "blue" | "cyan" | "violet", text: "plain {highlighted} text" }]
-*/
 
-const TYPE_MS = 24;     // base delay per typed character
-const ERASE_MS = 9;     // delay per erase step (erases 2 chars at a time)
-const HOLD_MS = 3200;   // pause once fully typed
-const GAP_MS = 380;     // pause before the next variant starts
+
+const TYPE_MS = 24;     
+const ERASE_MS = 9;     
+const HOLD_MS = 3200;   
+const GAP_MS = 380;     
 
 const REDUCED = "(prefers-reduced-motion: reduce)";
 
-// "a {b} c" -> [{text:"a ",hl:false},{text:"b",hl:true},{text:" c",hl:false}]
+
 const parse = (str) =>
   str
     .split(/(\{[^}]+\})/)
     .filter(Boolean)
     .map((p) => (p.startsWith("{") ? { text: p.slice(1, -1), hl: true } : { text: p, hl: false }));
 
-// first n characters of the segments, keeping highlight info
+
 const slice = (segs, n) => {
   const out = [];
   let left = n;

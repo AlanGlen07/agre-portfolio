@@ -1,4 +1,4 @@
-// Edit this file to change your projects. `tech` drives the connected lines.
+
 export const projects = [
   {
     id: 1,
@@ -13,7 +13,7 @@ export const projects = [
   {
     id: 2,
     short: "Community Feedback",
-    category: "Civic Tech / Web App",
+    category: "Civic Tech ",
     title: "Community Feedback System",
     desc: "A system that gathers and organizes community feedback, allowing administrators to track concerns and manage resident requests more efficiently.",
     tech: ["Java", "MySQL", "CRUD", "UI"],
